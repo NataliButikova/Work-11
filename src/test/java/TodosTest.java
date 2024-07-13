@@ -209,4 +209,29 @@ public class TodosTest {
         Task[] actual = todos.search(query);
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void matchEpic() {
+        Epic epic = new Epic(15, new String[]{"Позвонить родителям", "Позвонить сестре", "Позвонить маме"});
+
+        boolean actual = epic.matches("Позвонить");
+        Assertions.assertTrue(actual);
+    }
+
+    @Test
+    public void matchNoEpic() {
+        Epic epic = new Epic(15, new String[]{"Позвонить родителям", "Позвонить сестре", "Позвонить маме"});
+
+        boolean actual = epic.matches("Написать");
+        Assertions.assertFalse(actual);
+    }
+
+    @Test
+    public void getSubtasksEpic() {
+        Epic epic = new Epic(15, new String[]{"Позвонить родителям", "Позвонить сестре", "Позвонить маме"});
+
+        String[] actual = epic.getSubtasks();
+        String[] expected = new String[]{"Позвонить родителям", "Позвонить сестре", "Позвонить маме"};
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
